@@ -74,18 +74,15 @@ WSGI_APPLICATION = 'tecjerez.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    
- 'default': { 
-    'ENGINE': 'django.db.backends.mysql',
-    'NAME': 'tecjerez_db',
-    'USER': 'django',
-    'PASSWORD': 'django123)',
-    'HOST': 'localhost',
-    'PORT': '3307',
-}
-}
+import dj_database_url
 
+DATABASES = {
+    'default': dj_database_url.config(
+        # Aquí pon la Service URI que copiaste de Aiven (la que empieza con mysql://)
+        default='mysql://avnadmin:<redacted>@mysql-4625cd3-tecjerez-8cb4.g.aivencloud.com:27756/defaultdb?ssl-mode=REQUIRED',
+        conn_max_age=600
+    )
+}
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
