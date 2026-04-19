@@ -76,10 +76,12 @@ WSGI_APPLICATION = 'tecjerez.wsgi.application'
 
 import dj_database_url
 
+import dj_database_url
+import os
+
 DATABASES = {
     'default': dj_database_url.config(
-        # Aquí pon la Service URI que copiaste de Aiven (la que empieza con mysql://)
-        default='mysql://avnadmin:<redacted>@mysql-4625cd3-tecjerez-8cb4.g.aivencloud.com:27756/defaultdb?ssl-mode=REQUIRED',
+        default=os.environ.get('DATABASE_URL'),
         conn_max_age=600
     )
 }
