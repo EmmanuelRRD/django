@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido | ITSJ Instituto Tecnológico Superior de Jerez</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --itsj-blue: #003366;
+            /* Azul Institucional */
+            --itsj-orange: #ff8c00;
+            /* Naranja de Acento */
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--light-bg);
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        /* --- Navbar Personalizada --- */
+        .navbar-itsj {
+            background-color: var(--itsj-blue) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar-itsj .navbar-brand,
+        .navbar-itsj .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+
+        .navbar-itsj .nav-link:hover {
+            color: var(--itsj-orange) !important;
+        }
+
+        /* Botón de Iniciar Sesión en Navbar */
+        .btn-login-nav {
+            background-color: transparent;
+            color: white !important;
+            border: 2px solid white;
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login-nav:hover {
+            background-color: white;
+            color: var(--itsj-blue) !important;
+            transform: translateY(-2px);
+        }
+
+        /* --- Hero Section (Sección Principal) --- */
+        .hero {
+            /* Imagen de fondo profesional (puedes cambiar esta URL por una local si gustas) */
+            background: linear-gradient(rgba(0, 51, 102, 0.7), rgba(0, 51, 102, 0.9)),
+                url('https://images.unsplash.com/photo-1541339907198-e08756defefe?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            /* Ocupa todo el alto de la pantalla */
+            color: white;
+            display: flex;
+            align-items: center;
+            border-bottom: 8px solid var(--itsj-orange);
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        .hero-subtitle {
+            font-weight: 300;
+            font-size: 1.5rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        /* --- Tarjetas de Características (Features) --- */
+        .card-feature {
+            border: none;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            height: 100%;
+        }
+
+        .card-feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            background-color: #eef2f7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--itsj-blue);
+            font-size: 2.5rem;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #1a1a1a;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 60px 0 30px;
+            font-size: 0.95rem;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--itsj-orange);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* Estilos para los Modales de Login/Registro */
+        .modal-itsj .modal-content {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-itsj .modal-header {
+            background-color: var(--itsj-blue);
+            color: white;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .modal-itsj .btn-close {
+            filter: invert(1);
+        }
+
+        /* X blanca */
+
+        .modal-itsj .form-control {
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .btn-itsj-orange {
+            background-color: var(--itsj-orange);
+            color: white;
+            font-weight: 600;
+            border-radius: 50px;
+            padding: 10px 25px;
+            border: none;
+        }
+
+        .btn-itsj-orange:hover {
+            background-color: #e67e00;
+            color: white;
+        }
+    </style>
+</head>
+
+<script>
+    async function ejecutarLogin() {
+        const user = document.getElementById('userLogin').value;
+        const pass = document.getElementById('passLogin').value;
+
+        try {
+            const response = await fetch('/api/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ usuario: user, password: pass })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.status === 'success') {
+                alert("¡Bienvenido al sistema del ITSJ!");
+                window.location.href = "/alumnos/";
+            } else {
+                alert("Error: " + (data.message || "Credenciales inválidas"));
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Error de conexión con el servidor.");
+        }
+    }
+
+    async function ejecutarRegistro() {
+        const user = document.getElementById('regUsuario').value;
+        const pass = document.getElementById('regPassword').value;
+
+        const response = await fetch('/api/registro/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ usuario: user, password: pass })
+        });
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            alert("¡Cuenta creada! Ahora ya puedes iniciar sesión.");
+            // Cerramos el modal de registro y abrimos el de login
+            bootstrap.Modal.getInstance(document.getElementById('registerModal')).hide();
+            new bootstrap.Modal(document.getElementById('loginModal')).show();
+        } else {
+            alert("Error: " + data.message);
+        }
+    }
+</script>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-itsj sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-university me-2"></i> ITSJ
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#"><i class="fas fa-home me-1"></i> Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-info-circle me-1"></i> Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-graduation-cap me-1"></i> Oferta Académica</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-login-nav" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        <i class="fas fa-sign-in-alt me-1"></i> Iniciar Sesión
+                    </button>
+                    <button class="btn btn-itsj-orange" data-bs-toggle="modal" data-bs-target="#registerModal">
+                        <i class="fas fa-user-plus me-1"></i> Registrarse
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="hero-title display-1">Instituto Tecnológico Superior de Jerez</h1>
+                    <p class="hero-subtitle lead">Formando líderes en tecnología e innovación. Tu futuro comienza aquí,
+                        en el corazón de Jerez.</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-5" id="servicios">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold text-dark">Nuestros Pilares</h2>
+                <p class="text-muted lead">Conoce lo que nos define como institución de excelencia.</p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4">
+                    <div class="card card-feature p-4 text-center">
+                        <div class="icon-circle">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h4 class="mb-3">Calidad Académica</h4>
+                        <p class="text-muted">Programas educativos certificados y docentes de alto nivel dedicados a tu
+                            formación integral.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card card-feature p-4 text-center">
+                        <div class="icon-circle">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h4 class="mb-3">Innovación Tecnológica</h4>
+                        <p class="text-muted">Laboratorios de vanguardia y proyectos de investigación que impulsan el
+                            desarrollo regional.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card card-feature p-4 text-center">
+                        <div class="icon-circle">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h4 class="mb-3">Vinculación Empresarial</h4>
+                        <p class="text-muted">Convenios con empresas líderes para prácticas profesionales y bolsas de
+                            trabajo efectivas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center text-lg-start">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <span class="footer-logo">ITSJ</span>
+                    <p><strong>Instituto Tecnológico Superior de Jerez</strong></p>
+                    <p class="text-secondary small">Comprometidos con la educación tecnológica superior de Zacatecas.
+                    </p>
+                </div>
+                <div class="col-lg-6 text-lg-end">
+                    <p><strong>Ubicación:</strong><br>Av. Tecnológico #1, Col. Centro<br>Jerez, Zacatecas, C.P. 99300
+                    </p>
+                </div>
+            </div>
+            <hr class="border-secondary my-4">
+            <div class="text-center text-secondary small">
+                &copy; 2026 <strong>ITSJ</strong>. Todos los derechos reservados.<br>
+                Desarrollado para la materia de Tópicos Selectos de WEB.
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade modal-itsj" id="loginModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-lock me-2"></i> Iniciar Sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="formLogin" onsubmit="event.preventDefault(); ejecutarLogin();">
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Usuario / Num. Control</label>
+                            <input type="text" id="userLogin" class="form-control" placeholder="ejemploAlumno" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small text-muted">Contraseña</label>
+                            <input type="password" id="passLogin" class="form-control" required>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-itsj-orange">
+                                Entrar <i class="fas fa-arrow-right ms-1"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade modal-itsj" id="registerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-user-plus me-2"></i> Registro de Cuenta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form onsubmit="event.preventDefault(); ejecutarRegistro();">
+                        <div class="mb-3">
+                            <label class="form-label small text-muted">Ususario</label>
+                            <input type="usuario" class="form-control" id="regUsuario" placeholder="ExampleUser"
+                                required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label small text-muted">Contraseña (mínimo 8 caracteres)</label>
+                            <input type="password" id="regPassword" class="form-control" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-itsj-orange btn-lg">Crear Cuenta <i
+                                    class="fas fa-check-circle ms-1"></i></button>
+                            <p class="text-center small mt-3 text-muted">¿Ya tienes cuenta? <a href="#"
+                                    class="text-decoration-none text-itsj-blue fw-bold" data-bs-toggle="modal"
+                                    data-bs-target="#loginModal" data-bs-dismiss="modal">Inicia sesión</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
